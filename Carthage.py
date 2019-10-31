@@ -14,6 +14,8 @@
 import os
 # 文件所在目录需要存放在项目根目录
 carthage_file_dir_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+cart_file_path = carthage_file_dir_path + '/Cartfile'
+carthage_dir_path = carthage_file_dir_path + '/Carthage'
 
 
 def get_frameworks(path, input_path=None, output_path=None):
@@ -107,7 +109,6 @@ def check_cart_file(show_info=True):
     :return:
     """
 
-    cart_file_path = carthage_file_dir_path + '/Cartfile'
     if os.path.exists(cart_file_path):
         if show_info:
             print('Cartfile 存在！')
@@ -181,6 +182,11 @@ def add_framework():
             print('框架名输入有误，请重新输入！')
 
 
+def clear_file():
+    os.remove(cart_file_path)
+    shutil.rmtree(carthage_dir_path)
+
+
 def check_cmd():
     while True:
         input_str = input('请输入对应命令：')
@@ -190,7 +196,10 @@ def check_cmd():
             add_framework()
         elif input_str == 'quite' or input_str == 'q':
             print('退出工具！')
-            return
+        elif input_str == 'clear' or input_str == 'c':
+            print('清除文件中。。。')
+            clear_file()
+            print('清除文件完毕！')
 
 
 def cmd_help():
